@@ -1,0 +1,4 @@
+com\usermanagement\controller\validation\UserInformationValidationTest.class
+com\usermanagement\UserManagementApplicationTests.class
+com\usermanagement\controller\UserControllerTest.class
+com\usermanagement\service\UserServiceTest.class
