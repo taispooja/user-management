@@ -62,7 +62,7 @@ public class UserController {
 	
 	@ApiOperation(value = SWG_USER_UPDATE_OPERATION)
 	@PutMapping("/{id}")
-	public User updateUser(@PathVariable Long id, @Valid @RequestBody UserDTO userDto) throws ResourceNotFoundException, ResourceAlreadyExistException {
+	public User updateUser(@PathVariable Long id, @RequestBody UserDTO userDto) throws ResourceNotFoundException, ResourceAlreadyExistException {
 		return userService.update(id, userDto);
 	}
 	
