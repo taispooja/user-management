@@ -1,7 +1,6 @@
 package com.usermanagement.service;
 
 import java.util.Arrays;
-import java.util.Base64;
 import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,9 +11,9 @@ import org.springframework.util.CollectionUtils;
 
 import com.usermanagement.exception.ResourceAlreadyExistException;
 import com.usermanagement.exception.ResourceNotFoundException;
-import com.usermanagement.model.entities.User;
 import com.usermanagement.model.dtos.RoleDTO;
 import com.usermanagement.model.dtos.UserDTO;
+import com.usermanagement.model.entities.User;
 import com.usermanagement.repository.UserRepository;
 import com.usermanagement.service.interfaces.RoleService;
 import com.usermanagement.service.interfaces.UserService;
@@ -44,7 +43,8 @@ public class UserServiceImpl implements UserService{
         }
         newUser.setFirstName(userDto.getFirstName());
         newUser.setLastName(userDto.getLastName());
-        newUser.setPassword(Base64.getEncoder().encodeToString(userDto.getPassword().getBytes()));
+        //newUser.setPassword(Base64.getEncoder().encodeToString(userDto.getPassword().getBytes()));
+        newUser.setPassword(userDto.getPassword());
         
         if(!CollectionUtils.isEmpty(userDto.getRoles())) {
         	List<String> roleNames = userDto.getRoles().stream().map(RoleDTO :: getName).collect(Collectors.toList());
@@ -79,7 +79,8 @@ public class UserServiceImpl implements UserService{
         }
         
         if(userDto.getPassword() != null) {
-            user.setPassword(Base64.getEncoder().encodeToString(userDto.getPassword().getBytes()));
+           // user.setPassword(Base64.getEncoder().encodeToString(userDto.getPassword().getBytes()));
+        	user.setPassword(userDto.getPassword());
         }
         
         if(userDto.getEmailId() != null) {
