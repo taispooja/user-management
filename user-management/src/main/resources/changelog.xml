@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+	<changeSet author="pooja" id="1663656012014-24">
+		<createTable tableName="permissions">
+			<column autoIncrement="true" name="id" type="BIGSERIAL">
+				<constraints primaryKey="true" primaryKeyName="permissions_pkey" />
+			</column>
+			<column name="description" type="VARCHAR(255)" />
+			<column name="name" type="VARCHAR(255)">
+				<constraints nullable="false" unique="true" uniqueConstraintName="uk_ppermissions_name"/>
+			</column>
+		</createTable>
+	</changeSet>
+
+
+	<changeSet author="pooja" id="1663656012014-23">
+		<createTable tableName="role">
+			<column autoIncrement="true" name="id" type="BIGSERIAL">
+				<constraints primaryKey="true" primaryKeyName="role_pkey" />
+			</column>
+			<column name="description" type="VARCHAR(255)" />
+			<column name="is_default" type="BOOL">
+				<constraints nullable="false" />
+			</column>
+			<column name="name" type="VARCHAR(255)">
+			    <constraints nullable="false" unique="true" uniqueConstraintName="uk_role_name"/>
+			</column>
+		</createTable>
+	</changeSet>
+	<changeSet author="pooja" id="1663656012014-22">
+		<createTable tableName="role_permissions">
+			<column name="role_id" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="permission_id" type="SMALLINT">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet author="pooja" id="1663656012014-21">
+		<createTable tableName="users">
+			<column autoIncrement="true" name="id" type="BIGSERIAL">
+				<constraints primaryKey="true" primaryKeyName="users_pkey" />
+			</column>
+			<column name="email_id" type="VARCHAR(255)">
+				 <constraints nullable="false" unique="true" uniqueConstraintName="uk_users_email_id"/>
+			</column>
+			<column name="first_name" type="VARCHAR(255)" />
+			<column name="last_name" type="VARCHAR(255)" />
+			<column name="password" type="VARCHAR(255)">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+
+	<changeSet author="pooja" id="1663656012014-20">
+		<createTable tableName="users_roles">
+			<column name="user_id" type="BIGSERIAL">
+				<constraints nullable="false" />
+			</column>
+			<column name="role_id" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+		</createTable>
+	</changeSet>
+	
+	<changeSet author="pooja" id="1663656012014-09">
+		<addPrimaryKey columnNames="role_id, permission_id" constraintName="role_permissions_pkey" tableName="role_permissions" />
+	</changeSet>
+	<changeSet author="pooja" id="1663656012014-08">
+		<addPrimaryKey columnNames="user_id, role_id" constraintName="users_roles_pkey" tableName="users_roles" />
+	</changeSet>
+	<changeSet author="pooja" id="1663656012014-04">
+		<addForeignKeyConstraint baseColumnNames="permission_id" baseTableName="role_permissions" constraintName="fkegdk29eiy7mdtefy5c7eirr6e" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="permissions" />
+	</changeSet>
+	<changeSet author="pooja" id="1663656012014-03">
+		<addForeignKeyConstraint baseColumnNames="role_id" baseTableName="role_permissions" constraintName="fklodb7xh4a2xjv39gc3lsop95n" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="role" />
+	</changeSet>
+	<changeSet author="pooja" id="1663656012014-02">
+		<addForeignKeyConstraint baseColumnNames="role_id" baseTableName="users_roles" constraintName="fkt4v0rrweyk393bdgt107vdx0x" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="role" />
+	</changeSet>
+	<changeSet author="pooja" id="1663656012014-01">
+		<addForeignKeyConstraint baseColumnNames="user_id" baseTableName="users_roles" constraintName="fk2o0jvgh89lemvvo17cbqvdxaa" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="users" />
+	</changeSet>
+</databaseChangeLog>
