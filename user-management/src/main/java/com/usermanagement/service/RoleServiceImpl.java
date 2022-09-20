@@ -58,11 +58,18 @@ public class RoleServiceImpl implements RoleService {
 	}
 
 	@Override
-	public Role updateRole(Long id, RoleDTO roleDTO) throws ResourceNotFoundException {
+	public Role updateRole(Long id, RoleDTO roleDTO) throws ResourceNotFoundException, ResourceAlreadyExistException {
 		
 		Role roleToUpdate = findById(id);
 		if (roleDTO.getName() != null) {
-			roleToUpdate.setName(roleDTO.getName());
+			boolean isRoleAlreadyExist = roleRepository.existsByIdAndName(roleToUpdate.getId() ,roleDTO.getName());
+        	
+        	if(isRoleAlreadyExist) {
+        		throw new ResourceAlreadyExistException(
+						"Role with name: " + roleDTO.getName() + " already exist");
+        	}else {
+        		roleToUpdate.setName(roleDTO.getName());
+        	}
 		}
 
 		if (roleDTO.getDescription() != null) {
