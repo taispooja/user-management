@@ -12,17 +12,17 @@ public interface RoleService {
 
 	Role save(RoleDTO roleDto) throws ResourceAlreadyExistException;
 
-    List<Role> findAll();
+    	List<Role> findAll();
 
-    void delete(Long id);
+    	void delete(Long id);
     
-    Role updateRole(Long id, RoleDTO roleDto) throws ResourceNotFoundException;
+    	Role updateRole(Long id, RoleDTO roleDto) throws ResourceNotFoundException, ResourceAlreadyExistException;
 
-	Role findById(Long id) throws ResourceNotFoundException;
+    	Role findById(Long id) throws ResourceNotFoundException;
 
-	Set<Role> findByNameIn(List<String> roleNames);
+   	Set<Role> findByNameIn(List<String> roleNames);
 
-	Role findByDefaultRole();
+   	Role findByDefaultRole();
 
 	
 }
