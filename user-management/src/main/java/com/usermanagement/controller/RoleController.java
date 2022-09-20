@@ -57,7 +57,7 @@ public class RoleController {
 	
 	@ApiOperation(value = SWG_ROLE_UPDATE_OPERATION)
 	@PutMapping("/{id}")
-	public Role updateRole(@PathVariable Long id, @Valid @RequestBody RoleDTO roleDto) throws ResourceNotFoundException {
+	public Role updateRole(@PathVariable Long id, @RequestBody RoleDTO roleDto) throws ResourceNotFoundException, ResourceAlreadyExistException {
 		return roleService.updateRole(id, roleDto);
 	}
 	
