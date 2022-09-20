@@ -1,9 +1,8 @@
 package com.usermanagement.model.entities;
 
-import java.util.Collection;
+import java.util.Base64;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -80,11 +79,11 @@ public class User {
 	}
 
 	public String getPassword() {
-		return password;
+		return new String(Base64.getUrlDecoder().decode(password));
 	}
 
 	public void setPassword(String password) {
-		this.password = password;
+		this.password = Base64.getEncoder().encodeToString(password.getBytes());
 	}
 
 	public Set<Role> getRoles() {
@@ -94,8 +93,4 @@ public class User {
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
-	
-	
-	
-	
 }
